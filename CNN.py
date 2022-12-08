@@ -47,13 +47,17 @@ train_datagen = ImageDataGenerator(rescale=1./255,
 
 validation_datagen = ImageDataGenerator(rescale=1./255)
 
+# alterar de acordo com o dataset
+train_path = 'datasets/cachorro_e_gato/dataset_treino'
+validation_path = 'datasets/cachorro_e_gato/dataset_validation'
+
 # Pré-processamento das imagens de treino e validação
-training_set = train_datagen.flow_from_directory('datasets/cachorro_e_gato/dataset_treino',
+training_set = train_datagen.flow_from_directory(train_path,
                                                  target_size=(64, 64),
                                                  batch_size=32,
                                                  class_mode='binary')
 
-validation_set = validation_datagen.flow_from_directory('datasets/cachorro_e_gato/dataset_validation',
+validation_set = validation_datagen.flow_from_directory(validation_path,
                                                         target_size=(64, 64),
                                                         batch_size=32,
                                                         class_mode='binary')
@@ -65,14 +69,12 @@ classifier.fit_generator(training_set,
                          validation_data=validation_set,
                          validation_steps=2000)
 
-
-
 cachorroegato = 100
 covid = 4
 bartehomer = 20
 
+# Executando testes
 for i in range(cachorroegato): # adaptar para cada base
-
     # gato e cachorro
     image_number = 2150
     image_path = 'datasets/cachorro_e_gato/dataset_teste/' + str(image_number) + '.jpg'
